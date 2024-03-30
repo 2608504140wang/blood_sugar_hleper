@@ -1,0 +1,80 @@
+server:
+  port: 8088
+#12007
+
+spring:
+  datasource:
+    driver-class-name: ${sugar.datasource.driver-class-name}
+    url: jdbc:mysql://${sugar.datasource.host}:${sugar.datasource.port}/${sugar.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${sugar.datasource.username}
+    password: ${sugar.datasource.password}
+  redis:
+    host: ${sugar.redis.host}
+    port: ${sugar.redis.port}
+    database: ${sugar.redis.database}
+    password: ${sugar.redis.password}
+    connect-timeout: ${sugar.redis.connect-timeout}
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+
+
+itwh:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    secretKey: ${sugar.jwt.secretKey}
+    # 设置jwt过期时间（毫秒）
+    ttl: ${sugar.jwt.ttl}
+    # 设置前端传递过来的令牌名称
+    tokenName: ${sugar.jwt.tokenName}
+  sms:
+    access-key-id: ${sugar.sms.access-key-id}
+    access-key-secret: ${sugar.sms.access-key-secret}
+    region-id: ${sugar.sms.region-id}
+    sign-name: ${sugar.sms.sign-name}
+    template-code: ${sugar.sms.template-code}
+    product: ${sugar.sms.product}
+    domain: ${sugar.sms.domain}
+  oss:
+    endpoint: ${sugar.oss.endpoint}
+    access-key-id: ${sugar.oss.access-key-id}
+    access-key-secret: ${sugar.oss.access-key-secret}
+    bucket-name: ${sugar.oss.bucket-name}
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.itwh.pojo.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+captcha:
+  # 如果项目中使用到了redis，例如滑块验证码会自动把验证码数据存到redis中， 这里配置redis的key的前缀,默认是captcha:slider
+  prefix: captcha
+  # 验证码过期时间，默认是2分钟,单位毫秒， 可以根据自身业务进行调整
+  expire:
+    # 默认缓存时间 1分钟
+    default: 60000
+    # 针对 点选验证码 过期时间设置为 2分钟， 因为点选验证码验证比较慢，把过期时间调整大一些
+    WORD_IMAGE_CLICK: 120000
+  # 使用加载系统自带的资源， 默认是 false
+  init-default-resource: false
+  cache:
+    # 缓存控制， 默认为false不开启
+    enabled: true
+    # 验证码会提前缓存一些生成好的验证数据， 默认是20
+    cacheSize: 20
+    # 缓存拉取失败后等待时间 默认是 5秒钟
+    wait-time: 5000
+    # 缓存检查间隔 默认是2秒钟
+    period: 2000
+    secondary:
+      # 二次验证， 默认false 不开启
+      enabled: false
+      # 二次验证过期时间， 默认 2分钟
+      expire: 120000
+      # 二次验证缓存key前缀，默认是 captcha:secondary
+      keyPrefix: "captcha:secondary"

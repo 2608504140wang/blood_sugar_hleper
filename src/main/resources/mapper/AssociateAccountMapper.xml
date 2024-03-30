@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.AssociateAccountMapper">
+
+    <insert id="saveBatch">
+        insert into associate_account(user1_id, user2_id) values
+        <foreach collection="addIds" item="aa" separator=",">
+            (#{aa.user1Id}, #{aa.user2Id})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        delete from associate_account
+        <where>
+            <if test="user1Id != null">and user1_id=#{user1Id}</if>
+            <if test="user2Id != null">and user2_id=#{user2Id}</if>
+            <if test="id != null">and id=#{id}</if>
+        </where>
+    </delete>
+
+    <select id="list" resultType="com.itwh.pojo.entity.AssociateAccount">
+        select * from associate_account
+        <where>
+            <if test="user1Id != null">and user1_id=#{user1Id}</if>
+            <if test="user2Id != null">and user2_id=#{user2Id}</if>
+            <if test="id != null">and id=#{id}</if>
+        </where>
+    </select>
+
+</mapper>
+
