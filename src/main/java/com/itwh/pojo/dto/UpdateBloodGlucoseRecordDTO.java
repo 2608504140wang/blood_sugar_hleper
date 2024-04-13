@@ -1,16 +1,14 @@
-package com.itwh.pojo.entity;
+package com.itwh.pojo.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class bloodGlucoseRecord {
 
+@Data
+public class UpdateBloodGlucoseRecordDTO {
+
+    //血糖记录id
     private Long id;
 
     //血糖值
@@ -19,13 +17,9 @@ public class bloodGlucoseRecord {
     //记录时间
     private LocalDateTime recordTime;
 
-    //记录人id
-    private Long recordUser;
-
     //时段标签
     private String periodLabel;
 
     //备注
     private String remark;
-
 }

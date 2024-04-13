@@ -6,6 +6,8 @@ import com.itwh.pojo.entity.AssociateAccount;
 import com.itwh.pojo.vo.CustomerInformVO;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,4 +38,10 @@ public interface CustomerService {
      * @return
      */
     void updateAssociatedId(UpdateCustomerassociatedIdDTO updateCustomerassociatedIdDTO);
+
+    /**
+     * 获取用户健康记录Excel表
+     * @return
+     */
+    void getReport(HttpServletResponse response, LocalDate begin, LocalDate end);
 }

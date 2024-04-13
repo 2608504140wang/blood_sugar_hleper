@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.ArticleMapper">
+
+    <insert id="save">
+        insert into article(type, title, preview, link, author, picture)
+        values (#{type}, #{title}, #{preview}, #{link}, #{author}, #{picture})
+    </insert>
+
+    <update id="update">
+        update article
+        <set>
+            <if test="title != null">title=#{title},</if>
+            <if test="type != null">type=#{type},</if>
+            <if test="preview != null">preview=#{preview},</if>
+            <if test="link != null">link=#{link},</if>
+            <if test="author != null">author=#{author},</if>
+            <if test="picture != null">picture=#{picture},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="list" resultType="com.itwh.pojo.entity.Article">
+        select * from article
+        where type=#{type} or title like concat('%', #{title}, '%') or author=#{author}
+        order by like_num DESC, collect DESC
+    </select>
+
+</mapper>

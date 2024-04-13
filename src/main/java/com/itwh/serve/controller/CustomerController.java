@@ -8,8 +8,11 @@ import com.itwh.pojo.entity.AssociateAccount;
 import com.itwh.pojo.vo.CustomerInformVO;
 import com.itwh.serve.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -59,6 +62,16 @@ public class CustomerController {
         return Result.success("客户关联账号修改成功");
     }
 
-
+    /**
+     * 获取用户健康记录Excel表
+     * @return
+     */
+    @GetMapping("/report")
+    public Result getReport(HttpServletResponse response,
+                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+        customerService.getReport(response, begin, end);
+        return Result.success("用户健康记录表生成成功！");
+    }
 
 }

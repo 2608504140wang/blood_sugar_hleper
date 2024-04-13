@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.MedicineDetailMapper">
+
+    <insert id="save">
+        insert into medicine_detail(user_id, name, application, picture, dosage, remark)
+        values (#{userId}, #{name}, #{application}, #{picture}, #{dosage}, #{remark})
+    </insert>
+
+    <update id="update">
+        update medicine_detail
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="application != null">application=#{application},</if>
+            <if test="picture != null">picture=#{picture},</if>
+            <if test="dosage != null">dosage=#{dosage},</if>
+            <if test="remark != null">remark=#{remark},</if>
+        </set>
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </update>
+
+    <delete id="delete">
+        delete from medicine_detail
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </delete>
+
+</mapper>

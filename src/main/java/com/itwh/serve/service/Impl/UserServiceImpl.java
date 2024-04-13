@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
                 claims);
 
         //通过用户id去查询用户的角色
-        String role = userAndRoleMapper.listRoleByUserId(userId);
+        String role = userAndRoleMapper.listRoleByUserId(Long.parseLong(userId));
 
         LoginUsernameVO loginUsernameVO = LoginUsernameVO.builder()
                 .token(token)
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
         Long userid = loginUser.getUser().getId();
 
         //从redis中删除用户信息
-        redisTemplate.delete("login:"+userid);
+        redisTemplate.delete("login:"+ userid);
     }
 
     /**

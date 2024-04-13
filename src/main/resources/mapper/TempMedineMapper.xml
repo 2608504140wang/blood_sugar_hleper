@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.TempMedineMapper">
+
+    <insert id="saveBatch">
+        insert into temp_medicine(record_id, name, application, picture, dosage, remark) values
+        <foreach collection="tempMedicines" item="tm" separator=",">
+            (#{tm.recordId}, #{tm.name}, #{tm.application}, #{tm.picture}, #{tm.dosage}, #{tm.remark})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        delete from temp_medicine where id in
+        <foreach collection="removeIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="listByRecordId" resultType="com.itwh.pojo.entity.TempMedicine">
+        select * from temp_medicine
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="recordId != null">and record_id=#{recordId}</if>
+        </where>
+    </select>
+
+</mapper>

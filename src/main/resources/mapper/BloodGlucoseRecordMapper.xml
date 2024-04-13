@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.BloodGlucoseRecordMapper">
+
+    <insert id="save">
+        insert into blood_glucose_record(glucose_level, record_time, record_user, period_label, remark, create_time)
+        values (#{glucoseLevel}, #{recordTime}, #{recordUser}, #{periodLabel}, #{remark}, #{createTime})
+    </insert>
+
+    <update id="update">
+        update blood_glucose_record
+        <set>
+            <if test="glucoseLevel != null">glucose_level =#{glucoseLevel},</if>
+            <if test="periodLabel != null">period_label =#{periodLabel},</if>
+            <if test="remark != null">remark =#{remark},</if>
+            <if test="recordTime != null">record_time =#{recordTime},</if>
+        </set>
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="recordUser != null">and record_user=#{recordUser}</if>
+        </where>
+    </update>
+
+    <select id="list" resultType="com.itwh.pojo.entity.BloodGlucoseRecord">
+        select * from blood_glucose_record
+        <where>
+            <if test="beginTime">and record_time &gt; #{beginTime}</if>
+            <if test="endTime">and record_time &lt; #{endTime}</if>
+        </where>
+    </select>
+
+</mapper>

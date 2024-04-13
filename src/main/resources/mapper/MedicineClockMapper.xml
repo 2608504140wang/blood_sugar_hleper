@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.MedicineClockMapper">
+
+    <insert id="save">
+        insert into medicine_clock(user_id, name, application, picture, dosage, remark, clock)
+        values (#{userId}, #{name}, #{application}, #{picture}, #{dosage}, #{remark}, #{clock})
+    </insert>
+
+    <update id="update">
+        update medicine_clock
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="application != null">application=#{application},</if>
+            <if test="picture != null">picture=#{picture},</if>
+            <if test="dosage != null">dosage=#{dosage},</if>
+            <if test="remark != null">remark=#{remark},</if>
+            <if test="clock != null">clock=#{clock},</if>
+        </set>
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </update>
+
+    <delete id="delete">
+        delete from medicine_clock
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </delete>
+
+    <select id="list" resultType="com.itwh.pojo.entity.MedicineClock">
+        select * from medicine_clock
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="userId != null">and user_id=#{userId}</if>
+        </where>
+    </select>
+
+</mapper>

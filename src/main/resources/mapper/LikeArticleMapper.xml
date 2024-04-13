@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.LikeArticleMapper">
+
+    <insert id="save">
+        insert into like_article(article_id, user_id)
+        values (#{articleId}, #{userId})
+    </insert>
+    
+    <select id="list" resultType="com.itwh.pojo.entity.Article">
+        select a.id, a.title, a.preview, a.link, a.like_num, a.collect, a.author, a.picture
+        from article a, like_article la
+        where la.user_id = #{userId} and a.id = la.article_id
+    </select>
+
+</mapper>

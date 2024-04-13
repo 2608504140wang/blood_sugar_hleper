@@ -13,4 +13,10 @@
         where r.id = ur.role_id and ur.user_id = #{userId}
     </select>
 
+    <select id="listUserIdByRole" resultType="java.lang.Long">
+        select ur.user_id
+        from sys_role r, user_and_role ur
+        where r.id = ur.role_id and r.role_name=#{role}
+    </select>
+
 </mapper>

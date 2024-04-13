@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 /**
  * springsecurity配置类
  */
@@ -81,7 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //  允许匿名访问  即可以绕过过滤器
-                .antMatchers("/login/mobile", "/login/username","/register","/code/mobile","/captcha/get","/captcha/check","/password/update1").anonymous()
+                .antMatchers("/login/mobile", "/login/username", "/logout","/register","/code/mobile","/captcha/get","/captcha/check","/password/update1").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
@@ -122,4 +123,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(loginUserDetailsService);
 
     }
+
 }

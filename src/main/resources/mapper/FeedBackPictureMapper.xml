@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.FeedBackPictureMapper">
+
+    <insert id="saveBatch">
+        insert into feed_back_picture(feed_back_id, picture) values
+        <foreach collection="feedBackPictures" item="fbp" separator=",">
+            (#{fbp.feedBackId}, #{fbp.picture})
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itwh.serve.mapper.SportDetailMapper">
+
+    <insert id="save">
+        insert into sport_detail(name, type, picture, consumption, pass)
+        values (#{name}, #{type}, #{picture}, #{consumption}, #{pass})
+    </insert>
+
+    <update id="update">
+        update sport_detail
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="type != null">type=#{type},</if>
+            <if test="picture != null">picture=#{picture},</if>
+            <if test="consumption != null">consumption=#{consumption},</if>
+            <if test="pass != null">pass=#{pass},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from sport_detail
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="type != null">and type=#{type}</if>
+            <if test="name != null">and name=#{name}</if>
+            <if test="pass != null">and pass=#{pass}</if>
+        </where>
+    </delete>
+
+    <select id="list" resultType="com.itwh.pojo.entity.SportDetail">
+        select * from sport_detail
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="type != null">and type=#{type}</if>
+            <if test="name != null">and name like concat('%', #{name}, '%')</if>
+        </where>
+        and pass = 1
+    </select>
+
+</mapper>
